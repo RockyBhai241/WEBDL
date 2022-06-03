@@ -9,8 +9,7 @@
  from typing import DefaultDict
 title = pyfiglet.figlet_format('WEBDL Script', font='slant')
 print(f'[magenta]{title}[/magenta]')
-print("by parnex")
-print("Required files : yt-dlp.exe, mkvmerge.exe, mp4decrypt.exe, aria2c.exe\n")
+print("Required files : yt-dlp.exe, mp4decrypt.exe\n")
 
 arguments = argparse.ArgumentParser()
 # arguments.add_argument("-m", "--video-link", dest="mpd", help="MPD url")
@@ -42,10 +41,7 @@ dirPath = os.path.dirname(realPath)
 dirName = os.path.basename(dirPath)
 
 youtubedlexe = dirPath + '/binaries/yt-dlp.exe'
-aria2cexe = dirPath + '/binaries/aria2c.exe'
 mp4decryptexe = dirPath + '/binaries/mp4decrypt_new.exe'
-mkvmergeexe = dirPath + '/binaries/mkvmerge.exe'
-SubtitleEditexe = dirPath + '/binaries/SubtitleEdit.exe'
 
 # mpdurl = str(args.mpd)
 output = str(args.output)
@@ -67,18 +63,6 @@ print("\nDecrypting .....")
 subprocess.run(f'{mp4decryptexe} --show-progress {keys} encrypted.m4a decrypted.m4a', shell=True)
 subprocess.run(f'{mp4decryptexe} --show-progress {keys} encrypted.mp4 decrypted.mp4', shell=True)  
 
-if args.subtitle:
-    subprocess.run(f'{aria2cexe} {subtitle}', shell=True)
-        os.system('ren *.xml en.xml')
-            subprocess.run(f'{SubtitleEditexe} /convert en.xml srt', shell=True) 
-                print("Merging .....")
-                    subprocess.run([mkvmergeexe, '--ui-language' ,'en', '--output', output +'.mkv', '--language', '0:eng', '--default-track', '0:yes', '--compression', '0:none', 'decrypted.mp4', '--language', '0:eng', '--default-track', '0:yes', '--compression' ,'0:none', 'decrypted.m4a','--language', '0:eng','--track-order', '0:0,1:0,2:0,3:0,4:0', 'en.srt'])
-                        print("\nAll Done .....")
-                        else:
-                            print("Merging .....")
-                                subprocess.run([mkvmergeexe, '--ui-language' ,'en', '--output', output +'.mkv', '--language', '0:eng', '--default-track', '0:yes', '--compression', '0:none', 'decrypted.mp4', '--language', '0:eng', '--default-track', '0:yes', '--compression' ,'0:none', 'decrypted.m4a','--language', '0:eng','--track-order', '0:0,1:0,2:0,3:0,4:0'])
-                                    print("\nAll Done .....")    
-if args.delenc:
     delete_choice = 1
         if os.path.isfile(output + ".mkv"):
                 os.remove(keyfile)
